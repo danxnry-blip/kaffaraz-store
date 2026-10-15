@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kaffaraz Store</title>
+<style>
+:root{--bg:#0b0b1a;--card:#171727;--line:#26263b;--tx:#f2f2fa;--mu:#9a9ab5;--ac1:#ff6b6b;--ac2:#d94444;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f4f4fa;--card:#fff;--line:#e2e2ee;--tx:#14142a;--mu:#6b6b85;color-scheme:light}}
+*{box-sizing:border-box;margin:0}
+html,body{background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,Roboto,sans-serif}
+body{max-width:520px;margin:0 auto;padding:0 16px calc(88px + env(safe-area-inset-bottom,0px))}
+.hide{display:none!important}
+h1{font-size:20px;color:#ff9aa2}h2{font-size:15px;margin:18px 0 10px}
+.sub{font-size:12px;color:var(--mu)}
+/* auth */
+.sky{position:relative;height:250px;margin:0 -16px;background:radial-gradient(circle at 80% 28%,#f7e3a0 0 28px,transparent 30px),radial-gradient(circle at 80% 28%,#f7e3a033 0 70px,transparent 72px),linear-gradient(180deg,#05051a,#1d1640 70%,#3a1d3a);overflow:hidden}
+.sky:before{content:"";position:absolute;inset:0;background-image:radial-gradient(1.5px 1.5px at 12% 30%,#fff,transparent),radial-gradient(1.5px 1.5px at 30% 60%,#fff,transparent),radial-gradient(1px 1px at 55% 20%,#fff,transparent),radial-gradient(1.5px 1.5px at 68% 70%,#fff,transparent),radial-gradient(1px 1px at 90% 55%,#fff,transparent),radial-gradient(1px 1px at 40% 12%,#fff,transparent)}
+.sky h1{position:absolute;left:16px;top:14px;font-size:24px}
+.sky .jp{position:absolute;left:18px;bottom:22px;font-size:38px;font-weight:800;color:#ffffff88;letter-spacing:6px}
+.tabs{display:flex;gap:8px;margin:16px 0 12px}
+.tabs button{flex:1;padding:10px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--mu);font-weight:600;cursor:pointer}
+.tabs button.on{color:#fff;background:linear-gradient(90deg,var(--ac1),var(--ac2));border-color:transparent}
+input{width:100%;padding:15px 16px;margin-bottom:10px;border-radius:18px;border:1px solid var(--line);background:var(--card);color:var(--tx);font-size:15px;outline:none}
+input:focus{border-color:var(--ac1)}
+.big{width:100%;padding:15px;border-radius:999px;border:0;font-size:16px;font-weight:700;color:#fff;background:linear-gradient(90deg,var(--ac1),var(--ac2));cursor:pointer;margin-top:4px}
+.big.w{background:#fff;color:#222;margin-top:10px}
+.err{color:#ff8a8a;font-size:13px;min-height:18px;margin:2px 4px 6px}
+/* app */
+header{display:flex;justify-content:space-between;align-items:center;padding:16px 0 8px}
+.av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--ac1),var(--ac2));display:grid;place-items:center;font-weight:700;color:#fff;border:0;cursor:pointer;font-size:16px}
+.hero{border-radius:20px;padding:18px;margin:8px 0 14px;background:linear-gradient(160deg,#1c1c3d,#2a1830 70%,#40202a);border:1px solid var(--line);color:#f2f2fa}
+.hero small{color:#c9c9e0}.bal{font-size:28px;font-weight:700;margin:4px 0 14px}
+.row{display:flex;gap:8px}
+.btn{flex:1;border:0;border-radius:14px;padding:11px 6px;font-size:13px;font-weight:600;color:#fff;background:rgba(255,255,255,.12);cursor:pointer}
+.btn.p{background:linear-gradient(90deg,var(--ac1),var(--ac2))}
+.grid{display:grid;gap:10px}
+.item{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;cursor:pointer;color:inherit;text-align:left;width:100%;font:inherit}
+.ic{font-size:24px;width:46px;height:46px;border-radius:12px;background:rgba(255,107,107,.12);display:grid;place-items:center;flex:none}
+.item b{display:block;font-size:14px}.item span{font-size:12px;color:var(--mu)}.chev{margin-left:auto;color:var(--mu)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--tx);border-radius:999px;padding:8px 13px;font-size:13px;cursor:pointer}
+.chip.on{background:linear-gradient(90deg,var(--ac1),var(--ac2));border-color:transparent;color:#fff}
+.contact a{flex:1;text-align:center;text-decoration:none;color:#fff;font-weight:600;font-size:13px;padding:12px;border-radius:14px}
+.wa{background:#1fa855}.tg{background:#2a8fd4}
+.panel{display:none}.panel.show{display:block}
+.empty{text-align:center;color:var(--mu);font-size:13px;padding:24px 10px;background:var(--card);border:1px dashed var(--line);border-radius:16px}
+.pay{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pay button{padding:12px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--tx);font-size:13px;font-weight:600;cursor:pointer}
+.pay button.on{border-color:var(--ac1);background:rgba(255,107,107,.15)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:12px;font-size:13px;line-height:1.5}
+.no{font-family:monospace;font-size:18px;letter-spacing:1px;margin:6px 0}
+.trx{display:flex;justify-content:space-between;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:8px;font-size:13px}
+.st{font-size:11px;padding:3px 8px;border-radius:999px;background:#f5a62333;color:#f5a623;height:fit-content}
+.st.ok{background:#1fa85533;color:#2ecc71}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;max-width:520px;margin:0 auto;background:var(--card);border-top:1px solid var(--line);padding:8px 4px calc(8px + env(safe-area-inset-bottom,0px))}
+nav button{flex:1;background:none;border:0;color:var(--mu);font-size:11px;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer}
+nav button i{font-style:normal;font-size:20px}nav button.on{color:var(--ac1)}
+#toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:#000c;color:#fff;padding:10px 16px;border-radius:999px;font-size:13px;opacity:0;transition:.2s;pointer-events:none;max-width:90%;text-align:center}
+#toast.show{opacity:1}
+</style>
+</head>
+<body>
+
+<div id="auth">
+  <div class="sky"><h1>Kaffaraz Store</h1><div class="jp">良くぞ</div></div>
+  <div class="tabs"><button id="tL" class="on">Masuk</button><button id="tD">Daftar</button></div>
+  <input id="nm" placeholder="👤  Nama" class="hide" autocomplete="name">
+  <input id="em" type="email" placeholder="✉️  Alamat Gmail" autocomplete="email">
+  <input id="pw" type="password" placeholder="🔒  Sandi" autocomplete="current-password">
+  <input id="pw2" type="password" placeholder="🔒  Konfirmasi sandi" class="hide">
+  <div class="err" id="err"></div>
+  <button class="big" id="go">Masuk dengan Email</button>
+  <button class="big w" id="gg">Lanjut dengan Google</button>
+  <p class="sub" style="text-align:center;margin-top:14px">Akun tersimpan di perangkat ini.</p>
+</div>
+
+<div id="app" class="hide">
+<header>
+  <div><h1>Kaffaraz Store</h1><div class="sub" id="hi">よくぞ</div></div>
+  <button class="av" id="av" title="Keluar">K</button>
+</header>
+<section class="hero">
+  <small>Saldo kamu</small><div class="bal" id="bal">Rp 0</div>
+  <div class="row"><button class="btn p" data-go="topup">＋ Topup</button><button class="btn" data-go="transaksi">Transaksi</button><button class="btn" data-go="referral">🎁 Referral</button></div>
+</section>
+<main>
+<div class="panel show" id="shop">
+  <h2>Shop</h2>
+  <div class="grid">
+    <button class="item" data-t="Bahan Mobile Legends Advance Server"><div class="ic">🧰</div><div><b>Beli Bahan</b><span>Bahan untuk Mobile Legends Advance Server</span></div><div class="chev">›</div></button>
+    <button class="item" data-t="Tutorial"><div class="ic">📘</div><div><b>Beli Tutorial</b><span>Panduan langkah demi langkah</span></div><div class="chev">›</div></button>
+    <button class="item" data-t="Akun ML Polosan Adv/Cabang"><div class="ic">🎮</div><div><b>Akun ML Polosan</b><span>Advance server / cabang</span></div><div class="chev">›</div></button>
+    <div class="item" style="display:block;cursor:default"><div style="display:flex;gap:12px;align-items:center"><div class="ic">💎</div><div><b>Akun ML Ber-skin</b><span>Kolektor · pilih tingkatan</span></div></div><div class="chips" id="tiers"></div></div>
+  </div>
+  <h2>Kontak Admin</h2>
+  <div class="row contact"><a class="wa" href="https://wa.me/6283840174538" target="_blank" rel="noopener">WhatsApp</a><a class="tg" href="https://t.me/Danxnryy" target="_blank" rel="noopener">Telegram</a></div>
+  <div class="sub" style="margin-top:8px;text-align:center">WA 083840174538 · Tele @Danxnryy</div>
+</div>
+
+<div class="panel" id="topup">
+  <h2>Topup lewat</h2>
+  <div class="pay" id="pay"></div>
+  <h2>Nominal</h2>
+  <div class="chips" id="nom"></div>
+  <input id="cu" type="number" inputmode="numeric" placeholder="Atau ketik nominal (min. Rp 10.000)">
+  <button class="big" id="mk">Buat Tagihan</button>
+  <div class="box hide" id="inv"></div>
+</div>
+
+<div class="panel" id="saldo"><h2>Saldo</h2><div class="empty">Saldo saat ini<div style="font-size:26px;font-weight:700;color:var(--tx);margin:6px 0" id="bal2">Rp 0</div>Saldo bertambah setelah topup dikonfirmasi admin.</div></div>
+<div class="panel" id="transaksi"><h2>Transaksi</h2><div id="tl"></div></div>
+<div class="panel" id="referral"><h2>Hadiah Referral</h2><div class="empty">Ajak teman daftar dan dapat hadiah.<div class="no" id="ref" style="color:var(--tx)"></div><button class="big" id="cp">Salin kode</button></div></div>
+</main>
+<nav>
+  <button class="on" data-go="shop"><i>🛍️</i>Shop</button><button data-go="topup"><i>➕</i>Topup</button><button data-go="saldo"><i>👛</i>Saldo</button><button data-go="transaksi"><i>🧾</i>Transaksi</button><button data-go="referral"><i>🎁</i>Referral</button>
+</nav>
+</div>
+<div id="toast"></div>
+
+<script>
+// ISI nomor rekening/e-wallet milikmu di sini
+var PAY=[
+ {n:"DANA",e:"💙",no:""},{n:"GoPay",e:"💚",no:""},{n:"ShopeePay",e:"🧡",no:""},{n:"SeaBank",e:"🟠",no:""},
+ {n:"Allo Bank",e:"🏦",no:""},{n:"BNI",e:"🏛️",no:""},{n:"Neobank",e:"🟡",no:""},{n:"PayPal",e:"🅿️",no:""}
+];
+var ADMIN_WA="6283840174538";
+var $=function(i){return document.getElementById(i)};
+var db={users:{},session:""},me=null,mode="L",payIdx=-1,nomVal=0;
+function load(){try{var d=JSON.parse(localStorage.getItem("kz_db"));if(d&&d.users)db=d}catch(e){}}
+function save(){try{localStorage.setItem("kz_db",JSON.stringify(db))}catch(e){}}
+function rp(n){return "Rp "+Number(n).toLocaleString("id-ID")}
+var tt;function toast(m){var t=$("toast");t.textContent=m;t.className="show";clearTimeout(tt);tt=setTimeout(function(){t.className=""},2000)}
+async function hash(s){try{var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode("kz:"+s));return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,"0")}).join("")}catch(e){return btoa(unescape(encodeURIComponent("kz:"+s)))}}
+
+function setMode(m){mode=m;$("tL").className=m=="L"?"on":"";$("tD").className=m=="D"?"on":"";
+ $("nm").classList.toggle("hide",m=="L");$("pw2").classList.toggle("hide",m=="L");
+ $("go").textContent=m=="L"?"Masuk dengan Email":"Daftar dengan Email";$("err").textContent=""}
+$("tL").onclick=function(){setMode("L")};$("tD").onclick=function(){setMode("D")};
+$("gg").onclick=function(){toast("Login Google butuh server, belum aktif")};
+$("go").onclick=async function(){
+ var em=$("em").value.trim().toLowerCase(),pw=$("pw").value,er=$("err");
+ if(!/^[^\s@]+@gmail\.com$/.test(em)){er.textContent="Masukkan alamat Gmail yang valid";return}
+ if(pw.length<6){er.textContent="Sandi minimal 6 karakter";return}
+ var h=await hash(pw);
+ if(mode=="D"){
+  var nm=$("nm").value.trim();
+  if(!nm){er.textContent="Nama wajib diisi";return}
+  if(pw!==$("pw2").value){er.textContent="Konfirmasi sandi tidak sama";return}
+  if(db.users[em]){er.textContent="Gmail sudah terdaftar, silakan masuk";return}
+  db.users[em]={name:nm,h:h,saldo:0,trx:[],ref:"KFZ-"+Math.random().toString(36).slice(2,8).toUpperCase()};
+ }else{
+  if(!db.users[em]||db.users[em].h!==h){er.textContent="Gmail atau sandi salah";return}
+ }
+ db.session=em;save();enter();
+};
+function enter(){me=db.users[db.session];if(!me){db.session="";return}
+ $("auth").classList.add("hide");$("app").classList.remove("hide");
+ $("av").textContent=me.name.charAt(0).toUpperCase();$("hi").textContent="よくぞ, "+me.name;
+ $("ref").textContent=me.ref;render();go("shop")}
+$("av").onclick=function(){if(confirm("Keluar dari akun?")){db.session="";save();location.reload()}};
+
+function render(){
+ $("bal").textContent=rp(me.saldo);$("bal2").textContent=rp(me.saldo);
+ var l=$("tl");l.innerHTML="";
+ if(!me.trx.length){l.innerHTML='<div class="empty">Belum ada transaksi.</div>';return}
+ me.trx.slice().reverse().forEach(function(t){
+  var d=document.createElement("div");d.className="trx";
+  var a=document.createElement("div");a.innerHTML="<b></b><div class='sub'></div>";
+  a.firstChild.textContent="Topup "+t.m+" · "+rp(t.v);a.lastChild.textContent=t.id+" · "+new Date(t.d).toLocaleString("id-ID");
+  var s=document.createElement("span");s.className="st"+(t.s=="Berhasil"?" ok":"");s.textContent=t.s;
+  d.appendChild(a);d.appendChild(s);l.appendChild(d)})}
+
+function go(id){
+ document.querySelectorAll(".panel").forEach(function(p){p.classList.toggle("show",p.id===id)});
+ document.querySelectorAll("nav button").forEach(function(b){b.classList.toggle("on",b.dataset.go===id)});window.scrollTo(0,0)}
+document.querySelectorAll("[data-go]").forEach(function(b){b.onclick=function(){go(b.dataset.go)}});
+document.querySelectorAll(".item[data-t]").forEach(function(b){b.onclick=function(){toast(b.dataset.t+" segera hadir")}});
+
+["Senior","Ahli","Ternama","Terhormat","Juragan","Sultan","Galaxy"].forEach(function(t){
+ var c=document.createElement("button");c.className="chip";c.textContent=t;
+ c.onclick=function(){$("tiers").querySelectorAll(".chip").forEach(function(x){x.classList.remove("on")});c.classList.add("on");toast("Akun tingkat "+t)};$("tiers").appendChild(c)});
+
+PAY.forEach(function(p,i){var b=document.createElement("button");b.textContent=p.e+" "+p.n;
+ b.onclick=function(){payIdx=i;$("pay").querySelectorAll("button").forEach(function(x){x.classList.remove("on")});b.classList.add("on")};$("pay").appendChild(b)});
+[10000,25000,50000,100000,250000].forEach(function(n){var c=document.createElement("button");c.className="chip";c.textContent=rp(n);
+ c.onclick=function(){nomVal=n;$("cu").value="";$("nom").querySelectorAll(".chip").forEach(function(x){x.classList.remove("on")});c.classList.add("on")};$("nom").appendChild(c)});
+$("cu").oninput=function(){nomVal=parseInt($("cu").value)||0;$("nom").querySelectorAll(".chip").forEach(function(x){x.classList.remove("on")})};
+
+$("mk").onclick=function(){
+ if(payIdx<0){toast("Pilih metode topup dulu");return}
+ if(nomVal<10000){toast("Minimal topup Rp 10.000");return}
+ var p=PAY[payIdx],t={id:"TP"+Date.now().toString(36).toUpperCase(),m:p.n,v:nomVal,s:"Menunggu",d:Date.now()};
+ me.trx.push(t);save();render();
+ var msg=encodeURIComponent("Halo admin Kaffaraz Store, saya sudah topup.\nID: "+t.id+"\nMetode: "+p.n+"\nNominal: "+rp(t.v)+"\nAkun: "+db.session);
+ var b=$("inv");b.classList.remove("hide");
+ b.innerHTML="<b>Tagihan "+t.id+"</b><br>Transfer <b>"+rp(t.v)+"</b> ke "+p.n+":<div class='no'>"+(p.no||"(nomor belum diisi admin)")+"</div>Lalu kirim bukti transfer ke admin. Saldo masuk setelah dikonfirmasi."+
+  "<a class='big' style='display:block;text-align:center;text-decoration:none;margin-top:12px' target='_blank' rel='noopener' href='https://wa.me/"+ADMIN_WA+"?text="+msg+"'>Kirim bukti ke WhatsApp</a>";
+ toast("Tagihan dibuat")};
+$("cp").onclick=function(){try{navigator.clipboard.writeText(me.ref).then(function(){toast("Kode disalin")},function(){toast(me.ref)})}catch(e){toast(me.ref)}};
+
+load();setMode("L");if(db.session&&db.users[db.session])enter();
+</script>
+</body>
+</html>
